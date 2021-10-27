@@ -19,8 +19,7 @@ Besides, the results for each layer are writen to the built-in memories in textu
 |-------------|-----|-------|----------------------------------------------------------------------------|
 |	  clk	  |  I  |   1   | System clock that all signals are related to rising edge of clk.       	 |	  
 |    reset    |  I  |   1   | System reset that actives high asynchronously. 							 | 
-|    ready    |  I  |   1   | Ready signal indicates the input gray image is already provided.
-|			  |	 	|       | When ready is asserted, CONV circuit can start requesting image data via sending address. |
+|    ready    |  I  |   1   | Ready signal indicates the input gray image is already provided. When ready is asserted, CONV circuit can start requesting image data via sending address. |
 |	 busy     |  O  |   1   |																			 |
 |	 iaddr    |  O  |  12   | 																			 |
 |    idata    |  I  |  20   |																			 |
