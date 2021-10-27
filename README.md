@@ -1,12 +1,7 @@
-# 2019 CIC Contest Preliminary 
-Image Convolutional Circuit Design
+# 2019 CIC Contest Preliminary - Image Convolutional Circuit Design
 
-# ** Table of contents **
-=======================
-<!--ts-->
-	- [1. Descriptions](#descriptions)
-	- [2. Specification](#specification)
-		- [2.1 System Block diagram](#system-block-diagram)
-		- [2.2 Signal Description](#signal-description)
-		- [2.3 Functional Description](#functional-description)
-<!--te-->
+# **1. Introduction
+# **2. Specification
+	* **2.1 System Block diagram
+	* **2.2 Signal Description
+	* **2.3 Functional Description
