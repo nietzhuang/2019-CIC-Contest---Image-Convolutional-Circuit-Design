@@ -4,7 +4,7 @@
 
 Design an image convolutional circuit (CONV circuit) which is able to the computations of convolutional layer(layer 0), max-pooling(Layer 1), flattern(layer 2), besides, the input is gray image. The block diagram is demonstrated below.
 
-[Functional block diagram of CONV circuit](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/pics/Figure\ 1.png)
+[Functional block diagram of CONV circuit](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/pics/Figure1.png)
 
 First of all, in Layer 0, the input gray image which size is 64x64 has to be padding with zeros, afterwards, convolves with two different kernels which both size are 3x3. The, the results, two 64x64 size feature maps, are calculated followed by ReLU activation.
 Secondly, Layer 1 compute the maximum pooling function where the kernel chooses 2x2 and stride is selected as two. Therefore, the results in this layer produce two 32x32 feature maps.
@@ -13,13 +13,14 @@ Besides, the results for each layer are writen to the built-in memories in textu
 
 
 # **2. Specification**
-[System block diagram](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/pics/Figure\ 2.1.png)
+[System block diagram](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/pics/Figure2.1.png)
 
 | Signal Name | I/O | Width | Description 																 |
 |-------------|-----|-------|----------------------------------------------------------------------------|
 |	  clk	  |  I  |   1   | System clock that all signals are related to rising edge of clk.       	 |	  
 |    reset    |  I  |   1   | System reset that actives high asynchronously. 							 | 
-|    ready    |  I  |   1   | 																			 |
+|    ready    |  I  |   1   | Ready signal indicates the input gray image is already provided.
+|							  When ready is asserted, CONV circuit can start requesting image data via sending address. |
 |	 busy     |  O  |   1   |																			 |
 |	 iaddr    |  O  |  12   | 																			 |
 |    idata    |  I  |  20   |																			 |
