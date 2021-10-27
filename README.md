@@ -15,9 +15,21 @@ Besides, the results for each layer are writen to the built-in memories in textu
 # **2. Specification**
 [System block diagram](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/pics/Figure\ 2.1.png)
 
-
-
-
+| Signal Name | I/O | Width | Description 																 |
+|-------------|-----|-------|----------------------------------------------------------------------------|
+|	  clk	  |  I  |   1   | System clock that all signals are related to rising edge of clk.       	 |	  
+|    reset    |  I  |   1   | System reset that actives high asynchronously. 							 | 
+|    ready    |  I  |   1   | 																			 |
+|	 busy     |  O  |   1   |																			 |
+|	 iaddr    |  O  |  12   | 																			 |
+|    idata    |  I  |  20   |																			 |
+|     crd     |  O  |   1   |																			 |
+|   cdata_rd  |  I  |  20   |																			 |
+|   caddr_rd  |  O  |  12   |																			 |
+|     cwr     |  O  |   1   |																			 |
+|	cdata_wr  |  O	|  20   |																		     |		 
+|   caddr_wr  |  O  |  12   |                                                                            |
+|     csel    |  O  |   3   |                                                                            |
 
 
 
