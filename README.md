@@ -20,16 +20,22 @@ Besides, the results for each layer are writen to the built-in memories in textu
 |	  clk	  |  I  |   1   | System clock that all signals are related to rising edge of clk.       	 |	  
 |    reset    |  I  |   1   | System reset that actives high asynchronously. 							 | 
 |    ready    |  I  |   1   | Ready signal indicates the input gray image is already provided. When ready is asserted, CONV circuit can start requesting image data via sending address. |
-|	 busy     |  O  |   1   |																			 |
-|	 iaddr    |  O  |  12   | 																			 |
-|    idata    |  I  |  20   |																			 |
-|     crd     |  O  |   1   |																			 |
-|   cdata_rd  |  I  |  20   |																			 |
-|   caddr_rd  |  O  |  12   |																			 |
-|     cwr     |  O  |   1   |																			 |
-|	cdata_wr  |  O	|  20   |																		     |		 
-|   caddr_wr  |  O  |  12   |                                                                            |
-|     csel    |  O  |   3   |                                                                            |
+|	 busy     |  O  |   1   | Busy signal is asserted while CONV circuit recives ready as HIGH and prepares to work. It disassertes after all the related computations are done. |
+|	 iaddr    |  O  |  12   | Address to request input gray image. 										 |
+|    idata    |  I  |  20   | A sign input pixel data of gray image that constitutes 4-bit MSB as integer and 16-bit LSB as fraction. |
+|     crd     |  O  |   1   | Read enable signal indicates that the CONV circuit starts reading data from the memory when it is asserted. |
+|   cdata_rd  |  I  |  20   | Pixel data formed as 4-bit MSB integer and 16-bit LSB fraction inputs from the memory. |
+|   caddr_rd  |  O  |  12   | Memory address associates the pixel data in the memory. |
+|     cwr     |  O  |   1   | Write enable signal indicates that the CONV circuit starts writing the results to the memory when it is asserted. |
+|	cdata_wr  |  O	|  20   | Result data formed as 4-bit MSB integer and 16-bit LSB fraction outputs to the memory. |		 
+|   caddr_wr  |  O  |  12   | Memory address associates the results to be written and stored in the memory. |
+|     csel    |  O  |   3   | Memory selection signal that CONV circuit chooses which memory to read/write according to it.
+|			  |     |       | 3'b000: no selection.
+|             |     |       | 3'b001: read/write the layer 0 results convolved with kernel 0.
+|             |     |       | 3'b010: read/write the layer 0 results convolved with kernel 1.
+|             |     |       | 3'b011: read/write the layer 1 results convolved with kernel 0.
+|             |     |       | 3'b100: read/write the layer 1 results convolved with kernel 1 and computed max-pooling afterwards.
+|             |     |       | 3'b101: read/write the layer 3 results which is flatterned. |
 
 
 
