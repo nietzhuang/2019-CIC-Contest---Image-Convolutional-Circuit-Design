@@ -53,7 +53,8 @@ Furthermore, CONV circuit restores busy as LOW either while all tasks have done 
 ![Functional block diagram](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.2.png)
 1. Input gray image is formed as 64x64x1 pixels which is stored in the memory in testfixture, the way of the memory to store data is shown below.
 ![Memory store manner](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.3.png)
-
+CONV circuit sends iddr signal to request data, further, the testfixture responses idata corresponding to the address at the falling edge which are shown at t1 and t2.
+![Image data timing](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.4.png)
 
 
 
