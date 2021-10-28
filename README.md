@@ -42,6 +42,19 @@ Besides, the results for each layer are writen to the built-in memories in textu
 # 2.3 Functional Description
 After reset, testfixture asserts ready signal to indicate that data with repect to the gray images and kernels are already prepared. CONV circuit has to assert busy signal (shown at t1) so that the testfixture disasserts ready after detects bust as HIGH in order to wait for CONV circuit execution (shown at t2).
 Furthermore, CONV circuit restores busy as LOW either while all tasks have done or the excution of desired layer is done (shown at t3), meanwhile, testfixture is going to prepare next image and assert ready signal. Besides, testfixture starts verification when detects the busy signal setting to LOW again; CONV circuit is only admitted to assert busy signal once with respect to each one input image, and the CONV circuit only disasserts busy once in the end of computation. In addition, during the process when busy is asserted HIGH, CONV circuit is permitted to read/write all the memories without times limitation.
-![System procedure](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.png)
+![System procedure](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.1.png)
+
+
+
+
+
+
+
+![Functional block diagram](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.2.png)
+
+
+
+
+
 
 
