@@ -10,8 +10,8 @@ First of all, in Layer 0, the input gray image which size is 64x64 has to be pad
 Secondly, Layer 1 compute the maximum pooling function where the kernel chooses 2x2 and stride is selected as two. Therefore, the results in this layer produce two 32x32 feature maps.
 Last, Layer 2 flatterns the feature maps after max-pooling that the final result will expand to a length of 2048 serial signals in this design and output to memory.
 Besides, the results for each layer are writen to the built-in memories in texture.v that are L0_MEM0, L0_MEM1, L1_MEM0, L1_MEM1 and L2_MEM, the testbench verifies results in the memories.
-\
-\
+
+
 # **2. Specification**
 # 2.1 System Block diagram
 ![System block diagram](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.1.png)
@@ -43,15 +43,23 @@ Besides, the results for each layer are writen to the built-in memories in textu
 After reset, testfixture asserts ready signal to indicate that data with repect to the gray images and kernels are already prepared. CONV circuit has to assert busy signal (shown at t1) so that the testfixture disasserts ready after detects bust as HIGH in order to wait for CONV circuit execution (shown at t2).
 Furthermore, CONV circuit restores busy as LOW either while all tasks have done or the excution of desired layer is done (shown at t3), meanwhile, testfixture is going to prepare next image and assert ready signal. Besides, testfixture starts verification when detects the busy signal setting to LOW again; CONV circuit is only admitted to assert busy signal once with respect to each one input image, and the CONV circuit only disasserts busy once in the end of computation. In addition, during the process when busy is asserted HIGH, CONV circuit is permitted to read/write all the memories without times limitation.
 ![System procedure](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.1.png)
-\
-\
-\
+
+
+
 ![Functional block diagram](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.2.png)
 1. Input gray image is formed as 64x64x1 pixels which is stored in the memory in testfixture, the way of the memory to store data is shown below.
 ![Memory store manner](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.3.png)
 CONV circuit sends iddr signal to request data, further, the testfixture responses idata corresponding to the address at the falling edge which are shown at t1 and t2.
 ![Image data timing](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.4.png)
-\
-2. 
+
+2. Layer 0 computes the convolutional processing on input image after zero-padding with kernel 0 and kernel 1 seperately. Subsequently, obtain the results from the ReLU activation computation on each pixels.
+	A. Convolutional
+		Map the 3x3 kernel values on the input image, then compute the multiply-accumilate operation and move fixed 1 stride step by step as the figure shown below. For instance, on the red square we get 1x2 + 2x0 + 3x1 + 0x0 +1x1 + 2x2 + 3x1 + 0x0 + 1x3 = 16. After that, move right by one stride as the green square shown and get the result of 18. Finally, the entire feature map is calculated and plus the bias -0.5.
+![Convolutional operation example](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.5.png)
+
+		The weight values on kernel 0 and kernel 1 are given as shown below. The upper figure shows decimal velue with weights, meanwhile, the lower gives hexadecimal values formed as 4-bit integer plus 16-bit fraction. 
+![Decimal weights](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.6.png)
+![Hexadecimal weights](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.7.png)
+
 
 
