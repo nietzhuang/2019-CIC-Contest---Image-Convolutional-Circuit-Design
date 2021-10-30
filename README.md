@@ -72,8 +72,9 @@ CONV circuit sends iddr signal to request data, further, the testfixture respons
 ![Equation 2.1](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Equation2.1.png)
 .\
 .\
-
-
+	D. 
+		CONV circuit is responsible for sending the results from Layer 0 to the testfixture with respect to the address cdata_wr and the data cdata_wr. Furthermore, Each feature map has the specific memory so the circuit has to select csel signal as 4'b001 and 3'b010 to store eitht kernel 0 or kernel respectively. The storage structure is shown as below where the data width among L0_MEM0 and L0_MEM1 is 20 bits; 4-bit integer plus 16-bit fraction. Note that the data has to be rounding. 
+![The storage structure](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.9.png)
 
 
 
