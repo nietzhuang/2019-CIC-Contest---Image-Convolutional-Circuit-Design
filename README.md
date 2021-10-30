@@ -83,6 +83,16 @@ Compute the max-pooling with the two convolution results, therefore, the two 64x
 CONV circuit sends two results after max-pooling to testfixture with respect to the address caddr and the data cdata. The csel has to select 3'b011 or 3'b100 to choose the specific either L1_MEM0 or L1_MEM1, respectively. The fiure below shows the way of store.
 ![Max-pooling storage structure](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.11.png)
 \
+.\
+4. Layer 2 is flattern computation. CONV circuit has to flattern two 32x32 results into a length of 2048 vector in the intersectional order between kernel 0 and kernel 1 as the figure shown below. After that, CONV circuit sends the 2048 pixels to the memory in the testfixture with respect to the address caddr and the data cdata.
+![Flattern example](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.12.png)
+
+
+
+
+
+
+
 
 
 
