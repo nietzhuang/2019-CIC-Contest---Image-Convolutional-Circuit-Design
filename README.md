@@ -85,16 +85,17 @@ CONV circuit sends two results after max-pooling to testfixture with respect to 
 \
 .\
 4. Layer 2 is flattern computation. CONV circuit has to flattern two 32x32 results into a length of 2048 vector in the intersectional order between kernel 0 and kernel 1 as the figure shown below. After that, CONV circuit sends the 2048 pixels to the memory in the testfixture with respect to the address caddr and the data cdata.
-![Flattern example](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.12.png)
-
-
-
-
-
-
-
-
-
+![Flattern example](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.12.png)/
+.\
+.\
+.\
+# 2.4 Behaviour of memories
+The behaviour among L0_MEM0, L0_MEM1, L1_MEM0, L1_MEM1 and L2_MEM are the same SRAM models, the control manner and timing are the same and are capable of read and write. It uses csel control signal to select different memories and uses cwr as write enable, crd as read enable.\
+When read, use caddr_rd as the address and cdara_rd as the data signal. The behaviour is shown below, cdata_rd reads data according to the address caddr_rd when crd is observed HIGH at falling clock edge as shown at t1.
+![Read](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.4.1.png)\
+.\
+When write, use caddr_wr as the address and cdata_wr as the data signal. It writes cdata_wr into memory according to the address caddr_wr when cwr is observe HIGH at rising clock edge as shown at t2.
+![Write](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.4.2.png)\
 
 
 
