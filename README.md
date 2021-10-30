@@ -60,6 +60,13 @@ CONV circuit sends iddr signal to request data, further, the testfixture respons
 		The weight values on kernel 0 and kernel 1 are given as shown below. The upper figure shows decimal velue with weights, meanwhile, the lower gives hexadecimal values formed as 4-bit integer plus 16-bit fraction. 
 ![Decimal weights](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.6.png)
 ![Hexadecimal weights](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.7.png)
+.\
+.\
+	B. Zero-padding
+		In most cases, a convolution reduces the size of original image. However, the size can be preserved when pad zeros on the original image prior to the convolution. In this design, the input image has to be padded zero with one pixel surrondingly as shown as the figure below.
+![Zero-padding examples](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.8.png)
+
+
 
 
 
