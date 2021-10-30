@@ -62,9 +62,23 @@ CONV circuit sends iddr signal to request data, further, the testfixture respons
 ![Hexadecimal weights](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.7.png)
 .\
 .\
-	B. Zero-padding
+	B. Zero-padding.\
 		In most cases, a convolution reduces the size of original image. However, the size can be preserved when pad zeros on the original image prior to the convolution. In this design, the input image has to be padded zero with one pixel surrondingly as shown as the figure below.
 ![Zero-padding examples](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.8.png)
+.\
+.\
+	C. ReLU.\
+		ReLU (Rectified Linear Unit) can be expressed as the equation. Output y reduces to 0 if the input is equal to and less than 0, while the output y remains original value if the input is larger than 0.
+![Equation 2.1](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Equation2.1.png)
+.\
+.\
+
+
+
+
+
+
+
 
 
 
