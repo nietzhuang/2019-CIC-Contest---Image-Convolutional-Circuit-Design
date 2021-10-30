@@ -98,13 +98,3 @@ When write, use caddr_wr as the address and cdata_wr as the data signal. It writ
 ![Write](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.4.2.png)\
 
 
-
-
-
-
-
-
-
-
-
-
