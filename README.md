@@ -75,6 +75,14 @@ CONV circuit sends iddr signal to request data, further, the testfixture respons
 	D. 
 		CONV circuit is responsible for sending the results from Layer 0 to the testfixture with respect to the address cdata_wr and the data cdata_wr. Furthermore, Each feature map has the specific memory so the circuit has to select csel signal as 4'b001 and 3'b010 to store eitht kernel 0 or kernel respectively. The storage structure is shown as below where the data width among L0_MEM0 and L0_MEM1 is 20 bits; 4-bit integer plus 16-bit fraction. Note that the data has to be rounding. 
 ![The storage structure](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.9.png)
+.\
+.\
+3. Layer 1 processes the max-pooling which shrinks the size of the result from convolution, i.e. down-sampling. CONV circuit uses 2x2 max-pooling so the size shrinks to the half of original result.\
+Compute the max-pooling with the two convolution results, therefore, the two 64x64 results becomes two 32x32 feature maps as the figure shown. In detail, it chooses the maximal value in the 2x2 window size, and moves from the upper left to lower right at stride 2. For instance, the value is chosen 7 in the yellow region, while the value is chosen 7 in the blue region after moves 2 stride.
+![Max-pooling example](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.10.png)
+
+
+
 
 
 
