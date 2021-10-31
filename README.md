@@ -15,7 +15,7 @@ Besides, the results for each layer are writen to the built-in memories in textu
 ![System block diagram](pics/Figure2.1.png)
 
 ## 2.2 Signal Description
-| Signal Name | I/O | Width | Description 																 |
+| Signal Name | I/O | Width | Description |
 |---|---|---|---|
 |    clk      |  I  |   1   | System clock that all signals are related to rising edge of clk.       	 |	  
 |    reset    |  I  |   1   | System reset that actives high asynchronously. 							 | 
@@ -27,10 +27,10 @@ Besides, the results for each layer are writen to the built-in memories in textu
 |   cdata_rd  |  I  |  20   | Pixel data formed as 4-bit MSB integer and 16-bit LSB fraction inputs from the memory. |
 |   caddr_rd  |  O  |  12   | Memory address associates the pixel data in the memory. |
 |     cwr     |  O  |   1   | Write enable signal indicates that the CONV circuit starts writing the results to the memory when it is asserted. |
-|   cdata_wr  |  O	|  20   | Result data formed as 4-bit MSB integer and 16-bit LSB fraction outputs to the memory. |		 
+|   cdata_wr  |  O  |  20   | Result data formed as 4-bit MSB integer and 16-bit LSB fraction outputs to the memory. |
 |   caddr_wr  |  O  |  12   | Memory address associates the results to be written and stored in the memory. |
-|     csel    |  O  |   3   | Memory selection signal that CONV circuit chooses which memory to read/write according to it.
-  			      3'b000: no selection.
+|     csel    |  O  |   3   | Memory selection signal that CONV circuit chooses which memory to read/write according to it.\
+         		      3'b000: no selection.
 |             |     |       | 3'b001: read/write the layer 0 results convolved with kernel 0.
 |             |     |       | 3'b010: read/write the layer 0 results convolved with kernel 1.
 |             |     |       | 3'b011: read/write the layer 1 results convolved with kernel 0.
