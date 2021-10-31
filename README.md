@@ -11,10 +11,10 @@ Last, Layer 2 flatterns the feature maps after max-pooling that the final result
 Besides, the results for each layer are writen to the built-in memories in texture.v that are L0_MEM0, L0_MEM1, L1_MEM0, L1_MEM1 and L2_MEM, the testbench verifies results in the memories.\
 .\
 # **2. Specification**
-# 2.1 System Block diagram
+## 2.1 System Block diagram
 ![System block diagram](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.1.png)
 
-# 2.2 Signal Description
+## 2.2 Signal Description
 | Signal Name | I/O | Width | Description 																 |
 |-------------|-----|-------|----------------------------------------------------------------------------|
 |	  clk	  |  I  |   1   | System clock that all signals are related to rising edge of clk.       	 |	  
@@ -37,7 +37,7 @@ Besides, the results for each layer are writen to the built-in memories in textu
 |             |     |       | 3'b100: read/write the layer 1 results convolved with kernel 1 and computed max-pooling afterwards.
 |             |     |       | 3'b101: read/write the layer 3 results which is flatterned. |
 
-# 2.3 Functional Description
+## 2.3 Functional Description
 After reset, testfixture asserts ready signal to indicate that data with repect to the gray images and kernels are already prepared. CONV circuit has to assert busy signal (shown at t1) so that the testfixture disasserts ready after detects bust as HIGH in order to wait for CONV circuit execution (shown at t2).
 Furthermore, CONV circuit restores busy as LOW either while all tasks have done or the excution of desired layer is done (shown at t3), meanwhile, testfixture is going to prepare next image and assert ready signal. Besides, testfixture starts verification when detects the busy signal setting to LOW again; CONV circuit is only admitted to assert busy signal once with respect to each one input image, and the CONV circuit only disasserts busy once in the end of computation. In addition, during the process when busy is asserted HIGH, CONV circuit is permitted to read/write all the memories without times limitation.
 ![System procedure](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.1.png)
@@ -89,7 +89,7 @@ CONV circuit sends two results after max-pooling to testfixture with respect to 
 .\
 .\
 .\
-# 2.4 Behaviour of memories
+## 2.4 Behaviour of memories
 The behaviour among L0_MEM0, L0_MEM1, L1_MEM0, L1_MEM1 and L2_MEM are the same SRAM models, the control manner and timing are the same and are capable of read and write. It uses csel control signal to select different memories and uses cwr as write enable, crd as read enable.\
 When read, use caddr_rd as the address and cdara_rd as the data signal. The behaviour is shown below, cdata_rd reads data according to the address caddr_rd when crd is observed HIGH at falling clock edge as shown at t1.
 ![Read](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.4.1.png)\
