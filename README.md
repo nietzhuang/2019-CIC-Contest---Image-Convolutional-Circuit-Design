@@ -69,7 +69,7 @@ CONV circuit sends iddr signal to request data, further, the testfixture respons
 .\
 	C. ReLU.\
 		ReLU (Rectified Linear Unit) can be expressed as the equation. Output y reduces to 0 if the input is equal to and less than 0, while the output y remains original value if the input is larger than 0.\
-![Equation 2.1](/ics/Equation2.1.png)
+![Equation 2.1](pics/Equation2.1.png)
 //![Equation 2.1](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Equation2.1.png)
 .\
 .\
