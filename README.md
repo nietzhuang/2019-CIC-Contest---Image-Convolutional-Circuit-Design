@@ -29,7 +29,7 @@ Besides, the results for each layer are writen to the built-in memories in textu
 |     cwr     |  O  |   1   | Write enable signal indicates that the CONV circuit starts writing the results to the memory when it is asserted. |
 |   cdata_wr  |  O  |  20   | Result data formed as 4-bit MSB integer and 16-bit LSB fraction outputs to the memory. |
 |   caddr_wr  |  O  |  12   | Memory address associates the results to be written and stored in the memory. |
-|     csel    |  O  |   3   | Memory selection signal that CONV circuit chooses which memory to read/write according to it.\
+|     csel    |  O  |   3   | Memory selection signal that CONV circuit chooses which memory to read/write according to it.
 |             |     |       | 3'b000: no selection.
 |             |     |       | 3'b001: read/write the layer 0 results convolved with kernel 0.
 |             |     |       | 3'b010: read/write the layer 0 results convolved with kernel 1.
