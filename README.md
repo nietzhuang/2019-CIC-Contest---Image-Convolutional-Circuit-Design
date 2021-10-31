@@ -74,7 +74,7 @@ CONV circuit sends iddr signal to request data, further, the testfixture respons
   \
 	**D.** 
 	CONV circuit is responsible for sending the results from Layer 0 to the testfixture with respect to the address cdata_wr and the data cdata_wr. Furthermore, Each feature map has the specific memory so the circuit has to select _csel_ signal as 4'b001 and 3'b010 to store eitht kernel 0 or kernel respectively. The storage structure is shown as below where the data width among L0_MEM0 and L0_MEM1 is 20 bits; 4-bit integer plus 16-bit fraction. Note that the data has to be rounding. 
-![The storage structure](pics/Figure2.3.9.png)\
+![The storage structure](pics/Figure2.3.9.png)
   \
 3. Layer 1 processes the max-pooling which shrinks the size of the result from convolution, i.e. down-sampling. CONV circuit uses 2x2 max-pooling so the size shrinks to the half of original result.\
 Compute the max-pooling with the two convolution results, therefore, the two 64x64 results becomes two 32x32 feature maps as the figure shown. In detail, it chooses the maximal value in the 2x2 window size, and moves from the upper left to lower right at stride 2. For instance, the value is chosen 7 in the yellow region, while the value is chosen 7 in the blue region after moves 2 stride.
@@ -88,7 +88,6 @@ CONV circuit sends two results after max-pooling to testfixture with respect to 
 ![Flattern example](pics/Figure2.3.12.png)
   \
   \
-  \
 ## 2.4 Behaviour of memories
 The behaviour among L0_MEM0, L0_MEM1, L1_MEM0, L1_MEM1 and L2_MEM are the same SRAM models, the control manner and timing are the same and are capable of read and write. It uses _csel_ control signal to select different memories and uses _cwr_ as write enable, crd as read enable.\
 When read, use _caddr_rd_ as the address and cdara_rd as the data signal. The behaviour is shown below, _cdata_rd_ reads data according to the address _caddr_rd_ when _crd_ is observed HIGH at falling clock edge as shown at t1.
@@ -96,5 +95,6 @@ When read, use _caddr_rd_ as the address and cdara_rd as the data signal. The be
   \
 When write, use _caddr_wr_ as the address and _cdata_wr_ as the data signal. It writes _cdata_wr_ into memory according to the address _caddr_wr_ when _cwr_ is observe HIGH at rising clock edge as shown at t2.
 ![Write](pics/Figure2.4.2.png)
+  \
   \
 
