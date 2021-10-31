@@ -17,20 +17,20 @@ Besides, the results for each layer are writen to the built-in memories in textu
 ## 2.2 Signal Description
 | Signal Name | I/O | Width | Description 																 |
 |-------------|-----|-------|----------------------------------------------------------------------------|
-|	  clk	  |  I  |   1   | System clock that all signals are related to rising edge of clk.       	 |	  
+|    clk      |  I  |   1   | System clock that all signals are related to rising edge of clk.       	 |	  
 |    reset    |  I  |   1   | System reset that actives high asynchronously. 							 | 
 |    ready    |  I  |   1   | Ready signal indicates the input gray image is already provided. When ready is asserted, CONV circuit can start requesting image data via sending address. |
-|	 busy     |  O  |   1   | Busy signal is asserted while CONV circuit recives ready as HIGH and prepares to work. It disassertes after all the related computations are done. |
-|	 iaddr    |  O  |  12   | Address to request input gray image. 										 |
+|    busy     |  O  |   1   | Busy signal is asserted while CONV circuit recives ready as HIGH and prepares to work. It disassertes after all the related computations are done. |
+|    iaddr    |  O  |  12   | Address to request input gray image. 										 |
 |    idata    |  I  |  20   | A sign input pixel data of gray image that constitutes 4-bit MSB as integer and 16-bit LSB as fraction. |
 |     crd     |  O  |   1   | Read enable signal indicates that the CONV circuit starts reading data from the memory when it is asserted. |
 |   cdata_rd  |  I  |  20   | Pixel data formed as 4-bit MSB integer and 16-bit LSB fraction inputs from the memory. |
 |   caddr_rd  |  O  |  12   | Memory address associates the pixel data in the memory. |
 |     cwr     |  O  |   1   | Write enable signal indicates that the CONV circuit starts writing the results to the memory when it is asserted. |
-|	cdata_wr  |  O	|  20   | Result data formed as 4-bit MSB integer and 16-bit LSB fraction outputs to the memory. |		 
+|   cdata_wr  |  O	|  20   | Result data formed as 4-bit MSB integer and 16-bit LSB fraction outputs to the memory. |		 
 |   caddr_wr  |  O  |  12   | Memory address associates the results to be written and stored in the memory. |
 |     csel    |  O  |   3   | Memory selection signal that CONV circuit chooses which memory to read/write according to it.
-|			  |     |       | 3'b000: no selection.
+|             |     |       | 3'b000: no selection.
 |             |     |       | 3'b001: read/write the layer 0 results convolved with kernel 0.
 |             |     |       | 3'b010: read/write the layer 0 results convolved with kernel 1.
 |             |     |       | 3'b011: read/write the layer 1 results convolved with kernel 0.
@@ -73,14 +73,14 @@ CONV circuit sends iddr signal to request data, further, the testfixture respons
 .\
 .\
 	D. 
-		CONV circuit is responsible for sending the results from Layer 0 to the testfixture with respect to the address cdata_wr and the data cdata_wr. Furthermore, Each feature map has the specific memory so the circuit has to select csel signal as 4'b001 and 3'b010 to store eitht kernel 0 or kernel respectively. The storage structure is shown as below where the data width among L0_MEM0 and L0_MEM1 is 20 bits; 4-bit integer plus 16-bit fraction. Note that the data has to be rounding. 
+		CONV circuit is responsible for sending the results from Layer 0 to the testfixture with respect to the address cdata_wr and the data cdata_wr. Furthermore, Each feature map has the specific memory so the circuit has to select _csel_ signal as 4'b001 and 3'b010 to store eitht kernel 0 or kernel respectively. The storage structure is shown as below where the data width among L0_MEM0 and L0_MEM1 is 20 bits; 4-bit integer plus 16-bit fraction. Note that the data has to be rounding. 
 ![The storage structure](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.9.png)\
 .\
 3. Layer 1 processes the max-pooling which shrinks the size of the result from convolution, i.e. down-sampling. CONV circuit uses 2x2 max-pooling so the size shrinks to the half of original result.\
 Compute the max-pooling with the two convolution results, therefore, the two 64x64 results becomes two 32x32 feature maps as the figure shown. In detail, it chooses the maximal value in the 2x2 window size, and moves from the upper left to lower right at stride 2. For instance, the value is chosen 7 in the yellow region, while the value is chosen 7 in the blue region after moves 2 stride.
 ![Max-pooling example](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.10.png)
 \
-CONV circuit sends two results after max-pooling to testfixture with respect to the address caddr and the data cdata. The csel has to select 3'b011 or 3'b100 to choose the specific either L1_MEM0 or L1_MEM1, respectively. The fiure below shows the way of store.
+CONV circuit sends two results after max-pooling to testfixture with respect to the address caddr and the data cdata. The _csel_ has to select 3'b011 or 3'b100 to choose the specific either L1_MEM0 or L1_MEM1, respectively. The fiure below shows the way of store.
 ![Max-pooling storage structure](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.3.11.png)
 \
 .\
@@ -90,11 +90,11 @@ CONV circuit sends two results after max-pooling to testfixture with respect to 
 .\
 .\
 ## 2.4 Behaviour of memories
-The behaviour among L0_MEM0, L0_MEM1, L1_MEM0, L1_MEM1 and L2_MEM are the same SRAM models, the control manner and timing are the same and are capable of read and write. It uses csel control signal to select different memories and uses cwr as write enable, crd as read enable.\
-When read, use caddr_rd as the address and cdara_rd as the data signal. The behaviour is shown below, cdata_rd reads data according to the address caddr_rd when crd is observed HIGH at falling clock edge as shown at t1.
+The behaviour among L0_MEM0, L0_MEM1, L1_MEM0, L1_MEM1 and L2_MEM are the same SRAM models, the control manner and timing are the same and are capable of read and write. It uses _csel_ control signal to select different memories and uses _cwr_ as write enable, crd as read enable.\
+When read, use _caddr_rd_ as the address and cdara_rd as the data signal. The behaviour is shown below, _cdata_rd_ reads data according to the address _caddr_rd_ when _crd_ is observed HIGH at falling clock edge as shown at t1.
 ![Read](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.4.1.png)\
 .\
-When write, use caddr_wr as the address and cdata_wr as the data signal. It writes cdata_wr into memory according to the address caddr_wr when cwr is observe HIGH at rising clock edge as shown at t2.
+When write, use _caddr_wr_ as the address and _cdata_wr_ as the data signal. It writes _cdata_wr_ into memory according to the address _caddr_wr_ when _cwr_ is observe HIGH at rising clock edge as shown at t2.
 ![Write](https://github.com/nietzhuang/2019-CIC-Contest---Image-Convolutional-Circuit-Design/blob/master/pics/Figure2.4.2.png)\
 
 
