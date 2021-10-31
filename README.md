@@ -51,29 +51,29 @@ CONV circuit sends iddr signal to request data, further, the testfixture respons
 ![Image data timing](pics/Figure2.3.4.png)
 
 2. Layer 0 computes the convolutional processing on input image after zero-padding with kernel 0 and kernel 1 seperately. Subsequently, obtain the results from the ReLU activation computation on each pixels.\
-  
+  \
 	A. Convolutional.\
-		Map the 3x3 kernel values on the input image, then compute the multiply-accumilate operation and move fixed 1 stride step by step as the figure shown below. For instance, on the red square we get 1x2 + 2x0 + 3x1 + 0x0 +1x1 + 2x2 + 3x1 + 0x0 + 1x3 = 16. After that, move right by one stride as the green square shown and get the result of 18. Finally, the entire feature map is calculated and plus the bias -0.5.
+	Map the 3x3 kernel values on the input image, then compute the multiply-accumilate operation and move fixed 1 stride step by step as the figure shown below. For instance, on the red square we get 1x2 + 2x0 + 3x1 + 0x0 +1x1 + 2x2 + 3x1 + 0x0 + 1x3 = 16. After that, move right by one stride as the green square shown and get the result of 18. Finally, the entire feature map is calculated and plus the bias -0.5.
 ![Convolutional operation example](pics/Figure2.3.5.png)
-.\
-.\
-		The weight values on kernel 0 and kernel 1 are given as shown below. The upper figure shows decimal velue with weights, meanwhile, the lower gives hexadecimal values formed as 4-bit integer plus 16-bit fraction. 
+  \
+  \
+	The weight values on kernel 0 and kernel 1 are given as shown below. The upper figure shows decimal velue with weights, meanwhile, the lower gives hexadecimal values formed as 4-bit integer plus 16-bit fraction. 
 ![Decimal weights](pics/Figure2.3.6.png)
 ![Hexadecimal weights](pics/Figure2.3.7.png)
-.\
-.\
+  \
+  \
 	B. Zero-padding.\
-		In most cases, a convolution reduces the size of original image. However, the size can be preserved when pad zeros on the original image prior to the convolution. In this design, the input image has to be padded zero with one pixel surrondingly as shown as the figure below.
+	In most cases, a convolution reduces the size of original image. However, the size can be preserved when pad zeros on the original image prior to the convolution. In this design, the input image has to be padded zero with one pixel surrondingly as shown as the figure below.
 ![Zero-padding examples](pics/Figure2.3.8.png)
-.\
-.\
+  \
+  \
 	C. ReLU.\
-		ReLU (Rectified Linear Unit) can be expressed as the equation. Output y reduces to 0 if the input is equal to and less than 0, while the output y remains original value if the input is larger than 0.\
+	ReLU (Rectified Linear Unit) can be expressed as the equation. Output y reduces to 0 if the input is equal to and less than 0, while the output y remains original value if the input is larger than 0.\
 ![Equation 2.1](pics/Equation2.1.png)
-.\
-.\
+  \
+  \
 	D. 
-		CONV circuit is responsible for sending the results from Layer 0 to the testfixture with respect to the address cdata_wr and the data cdata_wr. Furthermore, Each feature map has the specific memory so the circuit has to select _csel_ signal as 4'b001 and 3'b010 to store eitht kernel 0 or kernel respectively. The storage structure is shown as below where the data width among L0_MEM0 and L0_MEM1 is 20 bits; 4-bit integer plus 16-bit fraction. Note that the data has to be rounding. 
+	CONV circuit is responsible for sending the results from Layer 0 to the testfixture with respect to the address cdata_wr and the data cdata_wr. Furthermore, Each feature map has the specific memory so the circuit has to select _csel_ signal as 4'b001 and 3'b010 to store eitht kernel 0 or kernel respectively. The storage structure is shown as below where the data width among L0_MEM0 and L0_MEM1 is 20 bits; 4-bit integer plus 16-bit fraction. Note that the data has to be rounding. 
 ![The storage structure](pics/Figure2.3.9.png)\
 .\
 3. Layer 1 processes the max-pooling which shrinks the size of the result from convolution, i.e. down-sampling. CONV circuit uses 2x2 max-pooling so the size shrinks to the half of original result.\
