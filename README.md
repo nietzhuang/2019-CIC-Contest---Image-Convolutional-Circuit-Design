@@ -52,7 +52,7 @@ CONV circuit sends iddr signal to request data, further, the testfixture respons
 
 2. Layer 0 computes the convolutional processing on input image after zero-padding with kernel 0 and kernel 1 seperately. Subsequently, obtain the results from the ReLU activation computation on each pixels.\
   \
-	**A. Convolutional.**\
+	**A. Convolutional.** \
 	Map the 3x3 kernel values on the input image, then compute the multiply-accumilate operation and move fixed 1 stride step by step as the figure shown below. For instance, on the red square we get 1x2 + 2x0 + 3x1 + 0x0 +1x1 + 2x2 + 3x1 + 0x0 + 1x3 = 16. After that, move right by one stride as the green square shown and get the result of 18. Finally, the entire feature map is calculated and plus the bias -0.5.
 ![Convolutional operation example](pics/Figure2.3.5.png)
   \
@@ -62,40 +62,33 @@ CONV circuit sends iddr signal to request data, further, the testfixture respons
 ![Hexadecimal weights](pics/Figure2.3.7.png)
   \
   \
-	**B. Zero-padding.**\
+	**B. Zero-padding.** \
 	In most cases, a convolution reduces the size of original image. However, the size can be preserved when pad zeros on the original image prior to the convolution. In this design, the input image has to be padded zero with one pixel surrondingly as shown as the figure below.
 ![Zero-padding examples](pics/Figure2.3.8.png)
   \
   \
-	**C. ReLU.**\
-	ReLU (Rectified Linear Unit) can be expressed as the equation. Output y reduces to 0 if the input is equal to and less than 0, while the output y remains original value if the input is larger than 0.\
-![Equation 2.1](pics/Equation2.1.png)
-
-  \
-  \
-	**D.** 
-	CONV circuit is responsible for sending the results from Layer 0 to the testfixture with respect to the address cdata_wr and the data cdata_wr. Furthermore, Each feature map has the specific memory so the circuit has to select _csel_ signal as 4'b001 and 3'b010 to store eitht kernel 0 or kernel respectively. The storage structure is shown as below where the data width among L0_MEM0 and L0_MEM1 is 20 bits; 4-bit integer plus 16-bit fraction. Note that the data has to be rounding.\
+	**C. ReLU.** \
+	ReLU (Rectified Linear Unit) can be expressed as the equation. Output y reduces to 0 if the input is equal to and less than 0, while the output y remains original value if the input is larger than 0. \
+![Equation 2.1](pics/Equation2.1.png) \
+\
+	**D. ** \
+	CONV circuit is responsible for sending the results from Layer 0 to the testfixture with respect to the address cdata_wr and the data cdata_wr. Furthermore, Each feature map has the specific memory so the circuit has to select _csel_ signal as 4'b001 and 3'b010 to store eitht kernel 0 or kernel respectively. The storage structure is shown as below where the data width among L0_MEM0 and L0_MEM1 is 20 bits; 4-bit integer plus 16-bit fraction. Note that the data has to be rounding.
 ![The storage structure](pics/Figure2.3.9.png)
-  \
+
 3. Layer 1 processes the max-pooling which shrinks the size of the result from convolution, i.e. down-sampling. CONV circuit uses 2x2 max-pooling so the size shrinks to the half of original result.\
 Compute the max-pooling with the two convolution results, therefore, the two 64x64 results becomes two 32x32 feature maps as the figure shown. In detail, it chooses the maximal value in the 2x2 window size, and moves from the upper left to lower right at stride 2. For instance, the value is chosen 7 in the yellow region, while the value is chosen 7 in the blue region after moves 2 stride.
 ![Max-pooling example](pics/Figure2.3.10.png)
-  \
+ \
 CONV circuit sends two results after max-pooling to testfixture with respect to the address caddr and the data cdata. The _csel_ has to select 3'b011 or 3'b100 to choose the specific either L1_MEM0 or L1_MEM1, respectively. The fiure below shows the way of store.
 ![Max-pooling storage structure](pics/Figure2.3.11.png)
-  \
-  \
+
 4. Layer 2 is flattern computation. CONV circuit has to flattern two 32x32 results into a length of 2048 vector in the intersectional order between kernel 0 and kernel 1 as the figure shown below. After that, CONV circuit sends the 2048 pixels to the memory in the testfixture with respect to the address caddr and the data cdata.
 ![Flattern example](pics/Figure2.3.12.png)
-  \
-  \
+
 ## 2.4 Behaviour of memories
 The behaviour among L0_MEM0, L0_MEM1, L1_MEM0, L1_MEM1 and L2_MEM are the same SRAM models, the control manner and timing are the same and are capable of read and write. It uses _csel_ control signal to select different memories and uses _cwr_ as write enable, crd as read enable.\
 When read, use _caddr_rd_ as the address and cdara_rd as the data signal. The behaviour is shown below, _cdata_rd_ reads data according to the address _caddr_rd_ when _crd_ is observed HIGH at falling clock edge as shown at t1.
-![Read](pics/Figure2.4.1.png)
-  \
+![Read](pics/Figure2.4.1.png) \
+\
 When write, use _caddr_wr_ as the address and _cdata_wr_ as the data signal. It writes _cdata_wr_ into memory according to the address _caddr_wr_ when _cwr_ is observe HIGH at rising clock edge as shown at t2.
 ![Write](pics/Figure2.4.2.png)
-  \
-  \
-
